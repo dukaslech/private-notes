@@ -1,0 +1,103 @@
+DUKA API CHEATSHEET (.dk / .duka)
+=================================
+
+1) REGRA DE OURO
+---------------
+- Em Python normal: `return 200` é só um número.
+- Em API (Flask): o status HTTP é o 2º retorno: `return jsonify(...), 200`
+- Não invente status tipo 700/999. Use HTTP padrão + um "code" interno no JSON.
+
+2) FORMATO DE RESPOSTA (PADRÃO BONITO)
+-------------------------------------
+SUCESSO:
+{
+  "ok": true,
+  "code": "OK",
+  "message": "Tudo certo",
+  "data": {...}     # opcional
+}
+
+ERRO:
+{
+  "ok": false,
+  "code": "MISSING_FIELDS",
+  "message": "nick e password são obrigatórios",
+  "details": {...}  # opcional
+}
+
+3) STATUS HTTP MAIS ÚTEIS (COMO USAR)
+-------------------------------------
+2xx  SUCESSO
+- 200 OK
+  Use quando: GET ok, login ok, update ok.
+- 201 Created
+  Use quando: criou recurso (nota, usuário, link).
+- 204 No Content
+  Use quando: deu certo mas não quer retornar corpo (DELETE).
+
+3xx  REDIRECIONAMENTO (quase não usa em API)
+- 301 Moved Permanently: URL mudou pra sempre.
+- 302 Found: redirecionamento temporário.
+- 304 Not Modified: cache válido (web/cdn).
+
+4xx  ERRO DO CLIENTE (requisição errada/permissão)
+- 400 Bad Request
+  Use quando: JSON inválido, campos faltando, formato errado.
+- 401 Unauthorized
+  Use quando: login/token/key errada (não autenticado).
+- 403 Forbidden
+  Use quando: autenticado, mas sem permissão.
+- 404 Not Found
+  Use quando: rota/nota/usuário não existe.
+- 405 Method Not Allowed
+  Use quando: rota existe, mas método errado (POST onde é GET).
+- 409 Conflict
+  Use quando: conflito (nick já existe, link duplicado, etc).
+- 413 Payload Too Large
+  Use quando: upload grande demais.
+- 415 Unsupported Media Type
+  Use quando: faltou Content-Type correto (ex: não é application/json).
+- 422 Unprocessable Entity
+  Use quando: formato ok, mas valores inválidos (senha fraca, nick inválido).
+
+5xx  ERRO DO SERVIDOR (bug/infra/DB)
+- 500 Internal Server Error
+  Use quando: erro inesperado no servidor.
+- 502 Bad Gateway
+  Use quando: proxy (nginx) não conseguiu falar com a app.
+- 503 Service Unavailable
+  Use quando: manutenção/sobrecarga.
+- 504 Gateway Timeout
+  Use quando: proxy esperou e a app não respondeu.
+
+4) MAPA RÁPIDO (AÇÕES COM STATUS RECOMENDADO)
+---------------------------------------------
+REGISTER:
+- ok: 201 (code=USER_CREATED)
+- nick já existe: 409 (code=USER_EXISTS)
+- campos faltando: 400 (code=MISSING_FIELDS)
+
+LOGIN:
+- ok: 200 (code=LOGIN_OK)
+- credenciais erradas: 401 (code=INVALID_CREDENTIALS)
+- campos faltando: 400 (code=MISSING_FIELDS)
+
+NOTES:
+- criar: 201 (code=NOTE_CREATED)
+- listar: 200 (code=NOTES_LIST)
+- pegar por id: 200 / se não existe 404 (code=NOTE_NOT_FOUND)
+- deletar: 204 (ou 200 com message) / se não existe 404
+- key errada p/ decrypt: 401 (code=INVALID_KEY) ou 403 (se quiser tratar como proibido)
+
+UPLOAD IMG:
+- ok: 201
+- grande demais: 413
+- tipo inválido: 415
+
+5) LEMBRETE PRÁTICO
+-------------------
+- Status HTTP = "classe" do resultado.
+- "code" interno = motivo exato do seu sistema.
+- "message" = texto pro humano.
+
+FIM
