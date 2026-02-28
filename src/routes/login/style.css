@@ -1,88 +1,122 @@
-/* Mantém o card responsivo e melhora em telas pequenas */
+:root {
+  /* Base */
+  --bg: #0b0d10;          /* fundo principal */
+  --panel: #10141a;       /* cards/caixas */
+  --panel-2: #0f1217;     /* variação */
+  --border: #1e2630;
+
+  --text: #e7edf6;
+  --muted: #a6b0bf;
+
+  --accent: #7c5cff;      /* roxo */
+  --accent-green: #22c55e; /* verde */
+  --accent-blue: #38bdf8; /* azul */
+
+  /* Estados */
+  --danger: #ef4444;
+  --shadow: 0 10px 30px rgba(0,0,0,.45);
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+
+body{
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  background: var(--bg);
+  color: var(--text);
+}
+a { color: var(--accent); }
+
+
 .form-login {
-  width: min(420px, 92vw);
-  margin: 64px auto;
-  padding: 28px;
-  background: #0b0f1a;
-  border: 1px solid rgba(255, 255, 255, .08);
-  border-radius: 18px;
-  box-shadow: 0 18px 50px rgba(0, 0, 0, .55);
+  background-color: var(--panel);
+  color: var(--text);
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  padding-bottom: 24px;
+  margin: 0 auto;
+  border-radius: 10px;
+  display: flexbox;
+}
+
+.title {
+  padding-top: 15px;
+  padding-left: 20px;
+}
+
+.error {
+  background-color: var(--danger);
+  color: var(--text);
+  width: 90%;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 10px;
+  flex-wrap: wrap;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.error p  {
+  padding-left: 10px !important;
+  margin-bottom: 10px;
+}
+
+.error-title {
+  padding: 0;
+  padding-top: 10px;
+  padding-left: 10px; 
+}
+
+.div-input {
+  /*background-color: #22c55e;*/
+  width: 90%;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
 }
 
-/* Inputs e botão já são 100% */
-.title {
-  margin: 0 0 6px;
-  color: #eaf0ff;
-  font-size: 22px;
-  letter-spacing: .2px;
+.field{
+  display: flex;
+  flex-direction: column; /* span em cima, input embaixo */
+  gap: 6px;
 }
 
-.field { display: grid; gap: 8px; }
-
-.field span {
-  color: rgba(234, 240, 255, .75);
-  font-size: 13px;
+.input, .btn{
+  width: 100%;            /* fica alinhado e bonito */
 }
 
 .input {
-  width: 100%;
-  height: 44px;
-  padding: 0 12 0 10px;
-  color: #eaf0ff;
-  background: rgba(255, 255, 255, .06);
-  border: 1px solid rgba(255, 255, 255, .10);
-  border-radius: 12px;
-  outline: none;
-  transition: border-color .15s, box-shadow .15s, transform .02s;
+  height: 40px;
+  border-radius: 10px;
+  padding-left: 10px;
+  font-size: 25px;
+  background-color: var(--panel-2);
+  color: var(--text);
+  border: solid var(--border) 1px;
 }
 
-.input::placeholder { color: rgba(234, 240, 255, .35); }
-
 .input:focus {
-  border-color: rgba(124, 58, 237, .65);
-  box-shadow: 0 0 0 4px rgba(124, 58, 237, .22);
+  background-color: #111418;
+  outline: none;
 }
 
 .btn {
-  margin-top: 6px;
-  height: 44px;
-  width: 100%;
-  border: 0;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #7c3aed, #22c55e);
-  color: #0b0f1a;
-  font-weight: 700;
-  cursor: pointer;
-  transition: transform .06s, filter .15s;
+  height: 40px;
+  border-radius: 10px;
+  padding-left: 10px;
+  font-size: 25px;
+  background-color: var(--panel-2);
+  color: var(--text);
+  border: solid var(--border) 1px;
 }
 
-.btn:hover { filter: brightness(1.05); }
-.btn:active { transform: translateY(1px); }
-
-/* ===== Responsivo de verdade ===== */
-
-/* Celular: menos margem e padding, fontes ajustadas */
-@media (max-width: 480px) {
-  .form-login {
-    width: calc(100vw - 24px);
-    margin: 18px auto;
-    padding: 16px;
-    border-radius: 14px;
-    box-shadow: 0 14px 36px rgba(0, 0, 0, .55);
-  }
-  .title { font-size: 18px; }
-  .input, .btn { height: 42px; }
+.btn:hover {
+  background-color: #111418;
 }
 
-/* Telas bem baixas: remove margem alta pra caber */
-@media (max-height: 650px) {
-  .form-login { margin: 12px auto; }
-}
-
-/* Acessibilidade: menos animação se usuário pedir */
-@media (prefers-reduced-motion: reduce) {
-  .input, .btn { transition: none; }
+.disable {
+  display: none;
 }
