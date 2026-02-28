@@ -7,10 +7,9 @@
   let msg = "Login"
 
   const token = localStorage.getItem("token");
-  if(token != "null"){
+  if (token && token !== "semtoken") {
     window.location.href = "/painel";
   }
-
   async function logar(){
     const r = await fetch("/api/auth", {
       method: "POST",

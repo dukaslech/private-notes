@@ -1,30 +1,40 @@
 <script>
-  import { json } from "@sveltejs/kit";
+import { onMount } from "svelte";
   import "./style.css";
 
-  let user = "Login"
+  let eae = ""
+  let user = "";
+  let token = "";
 
-  const token = localStorage.getItem("token");
-  if(token == "null"){
-    window.location.href = "/login";
-  }
+  onMount(async () => {
+    token = localStorage.getItem("token");
 
-  async function logar(){
-    const r = await fetch("/api/auth", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({action:"login", nick: usernick, password: userpassword})
-    })
+    // 1. Verificação de segurança
+    if (!token || token === "semtoken") {
+      window.location.href = "/login";
+      return; // Interrompe a execução aqui
+    }
 
-    let j = await r.json()
-    console.log(j)
-    msg = j.message
-    if (j.ok == true){
-      localStorage.setItem('token', j.token)
-      window.location.href = "/painel";
+    // 2. Só busca as infos se passar pelo check acima
+    await fetchInfos();
+  });
+
+  async function fetchInfos() {
+    try {
+      const r = await fetch(`/api/info/${encodeURIComponent(token)}`);
+      const j = await r.json();
+      eae = j
+      console.log(j)
+      
+      if (r.ok) {
+        user = j.user.nick;
+      } else {
+        console.error("Erro na API:", j.message);
+      }
+    } catch (err) {
+      console.error("Erro de conexão:", err);
     }
   }
-
 </script>
 
 <div class="wrap">
@@ -34,8 +44,12 @@
   </header>
 
   <main class="grid">
-      <article class="card" aria-label={"nota " +1}>
-        <h3 class="card-title">eae</h3>
+    {#each eae.notes as note}
+    <a href='/nota/?id=${note.id}'>
+      <article class="card" aria-label={note.id}>
+        <h3 class="card-title">{note.title}</h3>
       </article>
+    </a>
+    {/each}
   </main>
 </div>
