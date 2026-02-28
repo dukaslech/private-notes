@@ -1,10 +1,9 @@
 /* src/routes/nota/page.css */
-
-.body{
+body{
   margin: 0;
   min-height: 100vh;
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  background-color: #070a12;
+  background: #070a12;
   color: #d7e1ff;
 }
 
@@ -12,8 +11,72 @@
   max-width: 1100px;
   margin: 0 auto;
   padding: 18px;
+  position: relative;
 }
 
+/* ====== PASS FORM (overlay) ====== */
+.passform{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.65);
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  z-index: 999;
+}
+
+.passform-inner{
+  width: min(420px, 92vw);
+  background: #0b1020;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 18px;
+  box-shadow: 0 18px 50px rgba(0,0,0,.55);
+  padding: 18px;
+  display: grid;
+  gap: 12px;
+}
+
+.pass-title{
+  margin: 0;
+  font-size: 18px;
+  font-weight: 900;
+  color: #cdd9ff;
+}
+
+.pass-input{
+  height: 44px;
+  width: 100%;
+  padding: 0 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.04);
+  color: #d7e1ff;
+  outline: none;
+}
+
+.pass-btn{
+  height: 44px;
+  width: 100%;
+  border: 0;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #6d28d9, #16a34a);
+  color: #06110a;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.pass-msg{
+  margin: 0;
+  font-size: 13px;
+  color: rgba(255,160,160,.95);
+}
+
+/* Quando desbloqueou: some com a janela */
+.disable-passform{
+  display: none;
+}
+
+/* ====== NOTE CARD ====== */
 .card{
   border-radius: 18px;
   border: 1px solid rgba(255,255,255,.06);
@@ -25,9 +88,8 @@
 }
 
 .title{
-  width: 100%;
-  height: 56px;
-  padding: 0 14px;
+  margin: 0;
+  padding: 12px 14px;
   border-radius: 14px;
   border: 1px solid rgba(255,255,255,.08);
   background: rgba(255,255,255,.04);
@@ -35,48 +97,22 @@
   font-size: clamp(22px, 3.6vw, 44px);
   font-weight: 900;
   letter-spacing: .6px;
-  outline: none;
-}
-
-.title::placeholder{
-  color: rgba(205,217,255,.35);
-}
-
-.title:focus{
-  border-color: rgba(109,40,217,.45);
-  box-shadow: 0 0 0 4px rgba(109,40,217,.18);
 }
 
 .body{
-  width: 100%;
-  min-height: 260px;
-  height: auto;              /* cresce */
-  resize: none;              /* cresce automaticamente, sem “puxar” */
-  overflow: hidden;          /* sem scroll, cresce com texto */
   padding: 14px;
-
   border-radius: 16px;
   border: 1px solid rgba(255,255,255,.08);
   background: rgba(255,255,255,.03);
   color: rgba(215,225,255,.92);
-
   font-size: 15px;
   line-height: 1.45;
-  outline: none;
-}
-
-.body::placeholder{
-  color: rgba(215,225,255,.35);
-}
-
-.body:focus{
-  border-color: rgba(109,40,217,.35);
-  box-shadow: 0 0 0 4px rgba(109,40,217,.14);
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
 @media (max-width: 520px){
   .page{ padding: 12px; }
   .card{ padding: 12px; border-radius: 16px; }
-  .title{ height: 50px; border-radius: 12px; }
-  .body{ min-height: 220px; }
+  .title{ border-radius: 12px; }
 }

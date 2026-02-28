@@ -5,6 +5,7 @@
   let usernick = ""
   let userpassword = ""
   let msg = "Login"
+  let passform = ""
 
   const token = localStorage.getItem("token");
   if (token && token !== "semtoken") {
