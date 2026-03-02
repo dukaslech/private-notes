@@ -1,0 +1,41 @@
+:root {
+  /* Base */
+  --bg: #0b0d10;          /* fundo principal */
+  --panel: #10141a;       /* cards/caixas */
+  --panel-2: #0f1217;     /* variação */
+  --border: #1e2630;
+
+  --text: #e7edf6;
+  --muted: #a6b0bf;
+
+  --accent: #7c5cff;      /* roxo */
+  --accent-green: #22c55e; /* verde */
+  --accent-blue: #38bdf8; /* azul */
+
+  /* Estados */
+  --danger: #ef4444;
+  --shadow: 0 10px 30px rgba(0,0,0,.45);
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+
+body{
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  background: var(--bg);
+  color: var(--text);
+}
+a { color: var(--accent); }
+
+.card {
+  background-color: var(--panel);
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  max-width: 1500px;
+  max-height: 700px;
+  display: flex;
+  flex-wrap: wrap;
+  
+}

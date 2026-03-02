@@ -1,8 +1,8 @@
 <script>
-import { onMount } from "svelte";
-  import "./style.css";
+  import { onMount } from "svelte";
+  import "./style.css"
 
-  let eae = ""
+  let eae = "";
   let user = "";
   let token = "";
 
@@ -23,9 +23,9 @@ import { onMount } from "svelte";
     try {
       const r = await fetch(`/api/info/${encodeURIComponent(token)}`);
       const j = await r.json();
-      eae = j
-      console.log(j)
-      
+      eae = j;
+      console.log(j);
+
       if (r.ok) {
         user = j.user.nick;
       } else {
@@ -35,21 +35,29 @@ import { onMount } from "svelte";
       console.error("Erro de conexão:", err);
     }
   }
+
+  function sair() {
+    localStorage.removeItem("token");
+    window.location.href = "/";
+  }
+
 </script>
+
 
 <div class="wrap">
   <header class="topbar">
     <h1 class="title">BEM VINDO <span class="user">{user}</span></h1>
     <button class="btn">CRIAR</button>
+    <button class="btn" on:click={sair}>SAIR</button>
   </header>
 
   <main class="grid">
     {#each eae.notes as note}
-    <a href='/nota/?id=${note.id}'>
-      <article class="card" aria-label={note.id}>
-        <h3 class="card-title">{note.title}</h3>
-      </article>
-    </a>
+      <a href="/nota/?id=${note.id}" data-sveltekit-reload data-sveltekit-preload-data="off">
+        <article class="card" aria-label={note.id}>
+          <h3 class="card-title">{note.title}</h3>
+        </article>
+      </a>
     {/each}
   </main>
 </div>

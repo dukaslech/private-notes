@@ -64,7 +64,7 @@
         class="input"
         id="senha"
         type="password"
-        placeholder="Batata123@!"
+        placeholder="Abacate123@!"
         bind:value={userpassword}
       />
       <button class="btn" on:click={logar()}>Logar</button>

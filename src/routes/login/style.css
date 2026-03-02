@@ -106,7 +106,7 @@ a { color: var(--accent); }
 .btn {
   height: 40px;
   border-radius: 10px;
-  padding-left: 10px;
+  padding-left: 50px;
   font-size: 25px;
   background-color: var(--panel-2);
   color: var(--text);
