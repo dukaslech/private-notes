@@ -41,19 +41,23 @@
     window.location.href = "/";
   }
 
+  function criar() {
+    window.location.href = "/criar";
+  }
+
 </script>
 
 
 <div class="wrap">
   <header class="topbar">
     <h1 class="title">BEM VINDO <span class="user">{user}</span></h1>
-    <button class="btn">CRIAR</button>
+    <button class="btn" on:click={criar}>CRIAR</button>
     <button class="btn" on:click={sair}>SAIR</button>
   </header>
 
   <main class="grid">
     {#each eae.notes as note}
-      <a href="/nota/?id=${note.id}" data-sveltekit-reload data-sveltekit-preload-data="off">
+      <a href="/nota/?id={note.id}" data-sveltekit-reload data-sveltekit-preload-data="off">
         <article class="card" aria-label={note.id}>
           <h3 class="card-title">{note.title}</h3>
         </article>
