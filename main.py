@@ -5,14 +5,6 @@ from db_functions import *
 from flask import Response
 
 
-
-def get_bearer_token() -> str | None:
-    h = request.headers.get("Authorization", "")  # se não existir, vira ""
-    if h.startswith("Bearer "):
-        return h[7:].strip()
-    return None
-
-
 app = Flask(__name__)
 #CORS(app, resources={r"/api/*": {"origins": "http://127.0.0.1:5173"}})
 
@@ -65,4 +57,6 @@ def getinfo(token):
         mimetype="application/json" # Avisa o navegador que é um JSON
     )
 
-app.run(port=5098, debug=True)
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5098, debug=True)
