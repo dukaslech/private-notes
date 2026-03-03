@@ -16,18 +16,6 @@ def get_bearer_token() -> str | None:
 app = Flask(__name__)
 #CORS(app, resources={r"/api/*": {"origins": "http://127.0.0.1:5173"}})
 
-@app.post("/api/user")
-def userapi():
-    data = request.get_json(force=True)
-    action = data.get("action", "")
-
-    if action == "register":
-        nick = data.get("nick", "")
-        password = data.get("password", "")
-
-        chk = create_account(nick, password)
-        return jsonify(ok=chk["ok"], message=chk["message"]), chk["status"]
-    
 
 @app.post("/api/note")
 def noteapi():
@@ -60,6 +48,13 @@ def auth():
 
         chk = login(nick, password)
         return jsonify(ok=chk["ok"], message=chk["message"], token=chk["token"]), chk["status"]
+    elif action == "register":
+        nick = data.get("nick", "")
+        password = data.get("password", "")
+
+        chk = create_account(nick, password)
+        return jsonify(ok=chk["ok"], message=chk["message"]), chk["status"]
+    
 
 @app.get("/api/info/<token>")
 def getinfo(token):

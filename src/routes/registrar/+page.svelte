@@ -19,7 +19,7 @@
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        action: "login",
+        action: "register",
         nick: usernick,
         password: userpassword,
       }),
@@ -29,19 +29,20 @@
     console.log(j);
     msg = j.message;
     if (j.ok == true) {
-      localStorage.setItem("token", j.token);
-      window.location.href = "/painel";
+      window.location.href = "/login";
     }else if (j.ok == false) {
       classe = classeerror
       if (msg = 'Info não existe!'){
         msg = "Nick ou Senha incorretos"
+      }else {
+        msg = "Error no servidor, contate o suporte do site"
       }
     }
   }
 </script>
 
 <div class="form-login">
-  <h1 class="title">Login</h1>
+  <h1 class="title">Registrar</h1>
 
   <div class={classe}>
     <h1 class="error-title">&#9888; Erro!</h1>
@@ -67,10 +68,9 @@
         placeholder="Abacate123@!"
         bind:value={userpassword}
       />
-      <button class="btn" on:click={logar()}>Logar</button>
+      <button class="btn" on:click={logar()}>Registrar</button>
     </label>
-    <a href="/registrar" data-sveltekit-reload data-sveltekit-preload-data="off">Logar</a>
-
+    <a href="/login" data-sveltekit-reload data-sveltekit-preload-data="off">Logar</a>
   </div>
 
   
