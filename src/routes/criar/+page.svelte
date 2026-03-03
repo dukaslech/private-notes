@@ -20,7 +20,7 @@
 
     async function fetchInfos() {
         try {
-            const r = await fetch(`https://private-notes-chi.vercel.app/api/info/${encodeURIComponent(token)}`);
+            const r = await fetch(`/api/info/${encodeURIComponent(token)}`);
             const j = await r.json();
             eae = j;
             console.log(j);
@@ -36,10 +36,10 @@
     }
 
     async function criar() {
-        const ra = await fetch(`https://private-notes-chi.vercel.app/api/info/${encodeURIComponent(token)}`);
+        const ra = await fetch(`/api/info/${encodeURIComponent(token)}`);
         const ja = await ra.json();
         userid = ja.user.id
-        const r = await fetch("https://private-notes-chi.vercel.app/api/note", {
+        const r = await fetch("/api/note", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

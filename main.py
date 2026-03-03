@@ -8,12 +8,6 @@ from flask import Response
 app = Flask(__name__)
 #CORS(app, resources={r"/api/*": {"origins": "http://127.0.0.1:5173"}})
 
-CORS(app, resources={r"/api/*": {"origins": [
-    "https://private-notes-chi.vercel.app",
-    "http://localhost:5173",
-    "https://private-notes-site.vercel.app"
-]}})
-
 
 @app.post("/api/note")
 def noteapi():

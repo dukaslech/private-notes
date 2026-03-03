@@ -5,7 +5,7 @@ export default defineConfig({
 	plugins: [sveltekit()],
 	server: {
     proxy: {
-      '/api': 'https://private-notes-chi.vercel.app'
+      '/api': 'http://192.168.0.22:5098'
     }
   }
 });
