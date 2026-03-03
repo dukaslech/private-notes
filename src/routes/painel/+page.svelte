@@ -21,7 +21,7 @@
 
   async function fetchInfos() {
     try {
-      const r = await fetch(`/api/info/${encodeURIComponent(token)}`);
+      const r = await fetch(`https://private-notes-chi.vercel.app/api/info/${encodeURIComponent(token)}`);
       const j = await r.json();
       eae = j;
       console.log(j);

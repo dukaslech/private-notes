@@ -15,7 +15,7 @@
     window.location.href = "/painel";
   }
   async function logar() {
-    const r = await fetch("/api/auth", {
+    const r = await fetch("https://private-notes-chi.vercel.app/api/auth", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

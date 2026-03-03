@@ -19,7 +19,7 @@
     });
 
     async function noteview(id, password) {
-        let r = await fetch("/api/note",
+        let r = await fetch("https://private-notes-chi.vercel.app/api/note",
             {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
